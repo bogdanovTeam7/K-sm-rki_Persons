@@ -11,6 +11,9 @@ import pti.insert.PersonInsert;
 import pti.model.Address;
 import pti.model.Contact;
 import pti.model.Person;
+import pti.update.AddressUpdate;
+import pti.update.ContactUpdate;
+import pti.update.PersonUpdate;
 
 public class MainMenu {
 	private Scanner scanner;
@@ -50,13 +53,13 @@ public class MainMenu {
 				new ContactInsert(scanner).run();
 				break;
 			case 7:
-
+				new PersonUpdate(scanner).run();
 				break;
 			case 8:
-
+				new AddressUpdate(scanner).run();
 				break;
 			case 9:
-
+				new ContactUpdate(scanner).run();
 				break;
 			case 10:
 

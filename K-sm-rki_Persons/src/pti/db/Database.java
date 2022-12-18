@@ -246,4 +246,68 @@ public class Database {
 
 	}
 
+	public Contact getContactById(int id) {
+		Contact contact = null;
+		String sql = "SELECT * FROM contacts WHERE id=?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String contactAsString = rs.getString("contact");
+				int addressId = rs.getInt("address_id");
+				contact = new Contact(id, contactAsString, addressId);
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return contact;
+	}
+
+	public void updateContact(Contact contact) {
+		String sql = "UPDATE contacts SET contact=?, address_id=? WHERE id=?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, contact.getContact());
+			ps.setInt(2, contact.getAddressId());
+			ps.setInt(3, contact.getId());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void updateAddress(Address address) {
+		String sql = "UPDATE addresses SET address=?, person_id=? WHERE id=?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, address.getAddress());
+			ps.setInt(2, address.getPersonId());
+			ps.setInt(3, address.getId());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void updatePerson(Person person) {
+		String sql = "UPDATE persons SET name=? WHERE id=?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, person.getName());
+			ps.setInt(2, person.getId());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }
