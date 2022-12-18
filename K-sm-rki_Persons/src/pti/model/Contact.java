@@ -12,6 +12,12 @@ public class Contact {
 		this.addressId = addressId;
 	}
 
+	public Contact(String contact, int addressId) {
+		this.id = 0;
+		this.contact = contact;
+		this.addressId = addressId;
+	}
+
 	public int getId() {
 		return id;
 	}

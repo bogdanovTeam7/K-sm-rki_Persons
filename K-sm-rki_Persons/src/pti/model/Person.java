@@ -15,6 +15,12 @@ public class Person {
 		this.addresses = new ArrayList<>();
 	}
 
+	public Person(String name) {
+		this.id = 0;
+		this.name = name;
+		this.addresses = new ArrayList<>();
+	}
+
 	public int getId() {
 		return id;
 	}

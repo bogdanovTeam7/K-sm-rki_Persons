@@ -17,6 +17,13 @@ public class Address {
 		this.contacts = new ArrayList<>();
 	}
 
+	public Address(String address, int personId) {
+		this.id = 0;
+		this.address = address;
+		this.personId = personId;
+		this.contacts = new ArrayList<>();
+	}
+
 	public int getId() {
 		return id;
 	}

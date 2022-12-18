@@ -166,21 +166,84 @@ public class Database {
 
 	public Address getAddressById(int id) {
 		Address address = null;
-		String sql = "SELECT * FROM addresses WHERE id=?";
+		String sql = "SELECT * FROM addresses WHERE id = ?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				String addressAsString = rs.getString("address");
 				int personId = rs.getInt("person_id");
 				address = new Address(id, addressAsString, personId);
-				break;
+				setContacts(address);
 			}
+			rs.close();
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return address;
+	}
+
+	public void insertContact(Contact contact) {
+		String sql = "INSERT INTO contacts (contact,address_id) VALUES (?,?)";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, contact.getContact());
+			ps.setInt(2, contact.getAddressId());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public Person getPersonById(int id) {
+		Person person = null;
+		String sql = "SELECT * FROM persons WHERE id = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String name = rs.getString("name");
+				person = new Person(id, name);
+				setAddresses(person);
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return person;
+	}
+
+	public void insertAddress(Address address) {
+		String sql = "INSERT INTO addresses (address,person_id) VALUES (?,?)";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, address.getAddress());
+			ps.setInt(2, address.getPersonId());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void insertPerson(Person person) {
+		String sql = "INSERT INTO persons (name) VALUES (?)";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, person.getName());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

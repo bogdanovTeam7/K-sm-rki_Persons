@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import pti.db.Database;
 import pti.input.InputHandler;
+import pti.insert.AddressInsert;
 import pti.insert.ContactInsert;
+import pti.insert.PersonInsert;
 import pti.model.Address;
 import pti.model.Contact;
 import pti.model.Person;
@@ -18,14 +20,13 @@ public class MainMenu {
 		this.scanner = scanner;
 	}
 
-	public boolean run() {
-		print();
-		int selectedMenuPoint = -1;
+	public void run() {
 		boolean isRunning = true;
 		Database db = new Database();
-		while (selectedMenuPoint < 1 || selectedMenuPoint > 13) {
+		while (isRunning) {
 			String massege = "Kérem, válasszon a menüpontok között: ";
-			selectedMenuPoint = new InputHandler(scanner).getValue(massege);
+			print();
+			int selectedMenuPoint = new InputHandler(scanner).getInt(massege);
 			switch (selectedMenuPoint) {
 			case 1:
 				List<Person> persons = db.getAllPersons();
@@ -40,10 +41,10 @@ public class MainMenu {
 				printList(contacts, "Elérhetőségek");
 				break;
 			case 4:
-
+				new PersonInsert(scanner).run();
 				break;
 			case 5:
-
+				new AddressInsert(scanner).run();
 				break;
 			case 6:
 				new ContactInsert(scanner).run();
@@ -67,13 +68,16 @@ public class MainMenu {
 
 				break;
 			case 13:
-
+				isRunning = false;
+				break;
+			default:
+				System.out.println(">>>OLYAN MENÜPONT NEM LÉTEZIK!<<<");
 				break;
 
 			}
 		}
 		db.close();
-		return isRunning;
+		System.out.println("Kilepett!");
 	}
 
 	private <E> void printList(List<E> list, String title) {

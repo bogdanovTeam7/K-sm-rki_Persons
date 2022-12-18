@@ -10,18 +10,27 @@ public class InputHandler {
 		this.scanner = scanner;
 	}
 
-	public int getValue(String massege) {
-		int value = -1;
-		while (value < 0) {
+	public int getInt(String massege) {
+		int value = 0;
+		while (value < 1) {
 			System.out.print(massege);
 			try {
 				value = scanner.nextInt();
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.out.println(">>>CSAK EGÉSZ SZÁMOT ADHAT!<<<");
 			}
 			scanner.nextLine();
 		}
 
+		return value;
+	}
+
+	public String getString(String massege) {
+		String value = "";
+		while (value.length() < 1) {
+			System.out.println(massege);
+			value = scanner.nextLine().trim();
+		}
 		return value;
 	}
 
