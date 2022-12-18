@@ -34,4 +34,17 @@ public class InputHandler {
 		return value;
 	}
 
+	public boolean getBoolean(String massege) {
+		boolean value = false;
+		String input = "";
+		while (input.length() < 1) {
+			System.out.println(massege);
+			input = scanner.nextLine().trim().toUpperCase();
+		}
+		if ("I".equals(input)) {
+			value = true;
+		}
+		return value;
+	}
+
 }

@@ -310,4 +310,53 @@ public class Database {
 
 	}
 
+	public void deleteContact(Contact contact) {
+		String sql = "DELETE FROM contacts WHERE id=?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, contact.getId());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void deleteAddress(Address address) {
+
+		List<Contact> contacts = address.getContacts();
+		for (Contact contact : contacts) {
+			deleteContact(contact);
+		}
+
+		String sql = "DELETE FROM addresses WHERE id=?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, address.getId());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void deletePerson(Person person) {
+		List<Address> addresses = person.getAddresses();
+		for (Address address : addresses) {
+			deleteAddress(address);
+		}
+		String sql = "DELETE FROM persons WHERE id=?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, person.getId());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }

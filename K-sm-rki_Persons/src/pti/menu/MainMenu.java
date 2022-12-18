@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import pti.db.Database;
+import pti.delete.AddressDelete;
+import pti.delete.ContactDelete;
+import pti.delete.PersonDelete;
 import pti.input.InputHandler;
 import pti.insert.AddressInsert;
 import pti.insert.ContactInsert;
@@ -62,13 +65,13 @@ public class MainMenu {
 				new ContactUpdate(scanner).run();
 				break;
 			case 10:
-
+				new PersonDelete(scanner).run();
 				break;
 			case 11:
-
+				new AddressDelete(scanner).run();
 				break;
 			case 12:
-
+				new ContactDelete(scanner).run();
 				break;
 			case 13:
 				isRunning = false;
